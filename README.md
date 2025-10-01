@@ -1,15 +1,3 @@
-# Android SMS/MMS Sending Library
-
-![Promo](https://raw.githubusercontent.com/klinker41/android-smsmms/master/android-messaging.png)
-
-These are the APIs that Google has so far left out of the Android ecosystem for easily sending any type of message without digging through source code and what not.
-
-If you've got a better way to do things, send me a pull request! The library was created specifically for [Sliding Messaging Pro](https://play.google.com/store/apps/details?id=com.klinker.android.messaging_donate&hl=en) and [EvolveSMS](https://play.google.com/store/apps/details?id=com.klinker.android.evolve_sms&hl=en) and some things work the way they do specifically for those apps.
-
-It's now used in [Pulse](https://play.google.com/store/apps/details?id=xyz.klinker.messenger) as well.
-
----
-
 ## Library Overview
 
 Sending messages is very easy to do.
@@ -110,7 +98,7 @@ For full details on how to implement, please check out the sample application. I
 To include in your gradle project:
 
 ```groovy
-compile 'com.klinkerapps:android-smsmms:5.2.6'
+compile 'org.fossify:mmslib:1.0.0'
 ```
 
 ---
