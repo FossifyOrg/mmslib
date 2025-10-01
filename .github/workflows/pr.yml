@@ -1,0 +1,12 @@
+name: PR
+
+on:
+    pull_request:
+        branches: [ main ]
+
+jobs:
+    call-pr-workflow:
+        uses: FossifyOrg/.github/.github/workflows/pr.yml@main
+        with:
+            test_task: ":library:testDebugUnitTest"
+            run_detekt: false
