@@ -77,6 +77,11 @@ public abstract class MmsReceivedReceiver extends BroadcastReceiver {
         return false;
     }
 
+    public boolean isContentBlocked(Context context, String content) {
+        // Subclasses can override this to screen messages based on content.
+        return false;
+    }
+
     public abstract void onMessageReceived(Context context, Uri messageUri);
 
     public abstract void onError(Context context, String error);
@@ -115,7 +120,8 @@ public abstract class MmsReceivedReceiver extends BroadcastReceiver {
 
                 final MmsConfig.Overridden mmsConfig = new MmsConfig.Overridden(new MmsConfig(context), null);
                 final String address = parseSenderAddressFromPdu(context, response, locationUrl, mmsConfig);
-                if (isAddressBlocked(context, address)) {
+                final String content = MmsTextExtractor.extractTextFromPdu(response, mmsConfig.getSupportMmsContentDisposition());
+                if (isAddressBlocked(context, address) || isContentBlocked(context, content)) {
                     // Delete the corresponding NotificationInd.
                     SqliteWrapper.delete(context,
                             context.getContentResolver(),
