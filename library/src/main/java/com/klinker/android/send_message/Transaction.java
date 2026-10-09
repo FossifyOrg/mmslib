@@ -637,11 +637,12 @@ public class Transaction {
                 intent = explicitSentMmsReceiver;
             }
 
+            intent.setData(messageUri);
             intent.putExtra(MmsSentReceiver.EXTRA_CONTENT_URI, messageUri.toString());
             intent.putExtra(MmsSentReceiver.EXTRA_FILE_PATH, mSendFile.getPath());
             int flags = PendingIntent.FLAG_CANCEL_CURRENT;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                flags = flags | PendingIntent.FLAG_IMMUTABLE;
+                flags = flags | PendingIntent.FLAG_MUTABLE;
             }
             final PendingIntent pendingIntent = PendingIntent.getBroadcast(
                     context, 0, intent, flags);
@@ -674,8 +675,6 @@ public class Transaction {
             if (!TextUtils.isEmpty(httpParams)) {
                 configOverrides.putString(SmsManager.MMS_CONFIG_HTTP_PARAMS, httpParams);
             }
-            configOverrides.putInt(SmsManager.MMS_CONFIG_MAX_MESSAGE_SIZE, MmsConfig.getMaxMessageSize());
-
             if (contentUri != null) {
                 SmsManagerFactory.createSmsManager(settings).sendMultimediaMessage(context,
                         contentUri, null, configOverrides, pendingIntent);
